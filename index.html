@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+
+    <form>
+        <header>
+            <h3>TrackMy<span>Hours</span></h3>
+        </header>
+        
+        <div class="caixa-svg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+                <text x="50" y="90" font-family="Arial" font-size="80" fill="#f4f0ea" font-weight="bold">M</text>
+                <text x="85" y="90" font-family="Arial" font-size="60" fill="#f9004d" font-weight="bold">R</text>
+                <text x="115" y="90" font-family="Arial" font-size="40" fill="#f4f0ea" font-weight="bold">F</text>
+            </svg>
+        </div>
+        
+        <main class="container">
+            <h1>Login</h1>        
+            <div class="input-box">
+                <input type="text" placeholder="Usuário" required id="usuario">
+            </div>
+                
+            <div class="input-box">
+                <input type="password" placeholder="Digite sua senha" required id="senha-login">
+                <span onclick="mostrarSenha('cadastro-senha')">Mostrar</span>
+            </div>
+            
+            <div class="remember">
+                <label>
+                    <input type="checkbox" id="check">
+                    Lembrar senha
+                </label>
+                <a href="#">Esqueci minha senha</a>
+            </div>
+            
+            <button class="botao-ambos" type="submit" id="botao">Login</button>
+            
+            <div class="cadastro">
+                <p>Não tem um cadastro <a href="signup.html"><span>Cadastre-se agora</span></a></p>
+            </div>
+        </main>
+    </form>
+    
+    <script src="./index.js"></script>
+</body>
+</html>

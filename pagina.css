@@ -1,0 +1,359 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #222;
+    color: #fff;
+}
+
+.nome-site {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    margin: 0 0 4rem 0;
+}
+
+h3 {
+	color: #f4f0ea;
+	font-size: 2rem;
+}
+
+header {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #333;
+    color: #f9004d;
+    margin-bottom: 5rem;
+}
+
+header span {
+    color: #ffffff;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.data-navegacao {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3.5rem;
+    align-items: center;
+}
+
+.button-header {
+    background-color: rgb(89, 12, 80);
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 0.5rem;
+    width: 9rem;
+    cursor: pointer;
+    border-radius: 2rem;
+}
+
+.button-header:hover {
+    background-color: rgb(149, 48, 137);
+}
+
+.data-heder {
+    margin:0 2rem;
+}
+
+#totais {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+#totais div {
+    background-color: #444;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.5em;
+    width: 30%;
+}
+
+#registroHoras, #registroHorasExtras {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0px;
+    margin-bottom: 2rem;
+}
+
+#registroHoras label, #registroHorasExtras label {
+    flex-basis: 20%;
+}
+
+.texto-div1 {
+    position: relative;
+    left: 1.5rem;
+}
+
+.texto-div2 {
+    position: relative;
+    left: 1.5rem;
+}
+
+.texto-div3 {
+    position: relative;
+    left: 3rem;
+}
+
+.texto-div4 {
+    position: relative;
+    left: 4rem;
+}
+
+.put-div1 {
+    position: relative;
+    right: 8rem;
+    width: 8rem;
+    border-radius: 5rem;
+    padding: 0.1rem 0.1rem;
+    border: none;
+    text-align: center;
+    background-color: rgb(89, 12, 80);
+    color: #ffffff;
+
+}
+
+.put-div2 {
+    position: relative;
+    right: 5rem;
+    width: 8rem;
+    border-radius: 5rem;
+    padding: 0.1rem 0.1rem;
+    border: none;
+    text-align: center;
+    background-color: rgb(89, 12, 80);
+    color: #ffffff;
+}
+
+.put-div3 {
+    position: relative;
+    right: 4.2rem;
+    width: 8rem;
+    border-radius: 5rem;
+    padding: 0.1rem 0.1rem;
+    border: none;
+    text-align: center;
+    background-color: rgb(89, 12, 80);
+    color: #ffffff;
+}
+
+.put-div4 {
+    position: relative;
+    right: 1.3rem;
+    width: 8rem;
+    border-radius: 5rem;
+    padding: 0.1rem 0.1rem;
+    border: none;
+    text-align: center;
+    background-color: rgb(89, 12, 80);
+    color: #ffffff;
+}
+
+.button-registro {
+    margin-left: 41%;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0.1rem solid #ffffff;
+    border-radius: 2rem;
+    padding: 0.5rem 0.5rem;
+    background-color: transparent;
+    color: #ffffff;
+    width: 17rem;
+}
+
+.button-registro:hover {
+    background-color: #444444;
+}
+
+.texto-div5 {
+    position: relative;
+    left: 22rem;
+}
+
+.texto-div6 {
+    position: relative;
+    left: 1rem;
+}
+
+.put-div5 {
+    position: relative;
+    left: 1.3rem;
+    width: 8rem;
+    border-radius: 5rem;
+    padding: 0.1rem 0.1rem;
+    border: none;
+    text-align: center;
+    background-color: rgb(89, 12, 80);
+    color: #ffffff;
+}
+
+.put-div6 {
+    position: relative;
+    right: 21rem;
+    width: 8rem;
+    border-radius: 5rem;
+    padding: 0.1rem 0.1rem;
+    border: none;
+    text-align: center;
+    background-color: rgb(89, 12, 80);
+    color: #ffffff;
+}
+
+#registroTabela {
+    margin-top: 20px;
+}
+
+#registroTabela table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#registroTabela th, #registroTabela td {
+    border: 1px solid #555;
+    padding: 10px;
+    text-align: center;
+}
+
+#Devendo {
+    color: red;
+}
+
+#Devendo.negativo {
+    color: green;
+}
+
+/* Ajustes adicionais para telas menores */
+@media (max-width: 932px) {
+
+    /* Centralizar o título */
+    header {
+        
+        text-align: center;
+        font-size: 0.8rem; /* Ajustar tamanho da fonte do título */
+    }
+
+    .data-navegacao {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1.5rem; /* Reduzir espaço */
+    }
+
+    .button-header {
+        width: 55%;
+        margin-bottom: 1rem; /* Diminuir o tamanho do botão */
+        margin-top: 1rem;
+    }
+
+    /* Ajustar as caixas de totais para ficarem mais proporcionais */
+    #totais {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    #totais div {
+        width: 65%;
+        margin-bottom: 1rem;
+        font-size: 1.2rem; /* Ajustar o tamanho da fonte */
+    }
+
+    /* Ajustar os campos de entrada de hora */
+    #registroHoras, #registroHorasExtras {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    #registroHoras label, #registroHorasExtras label {
+        flex-basis: 50%;
+        text-align: center;
+        margin-bottom: 1rem;
+        position: static;
+    }
+
+    .put-div1 {
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       width: 75%;
+       right: 0.1rem;
+       padding: 0.5rem;
+       margin-bottom: 1rem;
+    }
+
+    .put-div2 {
+        display: flex;
+        justify-content: center;
+        width: 75%;
+        right: 0.1rem;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .put-div3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 75%;
+        right: 0.1rem;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .put-div4 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 75%;
+        right: 0.1rem;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .put-div5 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 75%;
+        right: 0.1rem;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        left: 0.2rem;
+    }
+
+    .put-div6 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 75%;
+        right: 0.1rem;
+        padding: 0.5rem;
+    }   
+
+    .button-registro {
+        width: 80%;
+        margin-left: 10%;
+    }
+
+    /* Tabela de registro de horas */
+    #registroTabela table {
+        width: 100%;
+    }
+}
+
+

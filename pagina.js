@@ -1,4 +1,5 @@
 const registros = JSON.parse(localStorage.getItem("registros")) || {};
+const usuarioAtual = localStorage.getItem("usuario"); // Pega o usuário atual
 let dataAtual = new Date();
 
 function iniciarModoEscuro() {
@@ -8,7 +9,7 @@ function iniciarModoEscuro() {
 function alterarData(direcao) {
     dataAtual.setDate(dataAtual.getDate() + direcao);
     exibirData();
-    resetarRegistros();s
+    resetarRegistros();
     carregarDadosSalvos();
 }
 
@@ -40,11 +41,14 @@ function calcularHoras() {
         const horasDevidas = 7 - horasTrabalhadas;
 
         const dataFormatada = dataAtual.toISOString().split('T')[0];
-        if (!registros[dataFormatada]) {
-            registros[dataFormatada] = { horasTrabalhadas: 0, horasExtras: 0, devido: 0 };
+        if (!registros[usuarioAtual]) {
+            registros[usuarioAtual] = {};
         }
-        registros[dataFormatada].horasTrabalhadas = horasTrabalhadas;
-        registros[dataFormatada].devido = horasDevidas;
+        if (!registros[usuarioAtual][dataFormatada]) {
+            registros[usuarioAtual][dataFormatada] = { horasTrabalhadas: 0, horasExtras: 0, devido: 0 };
+        }
+        registros[usuarioAtual][dataFormatada].horasTrabalhadas = horasTrabalhadas;
+        registros[usuarioAtual][dataFormatada].devido = horasDevidas;
 
         salvarRegistros();
         atualizarTotais();
@@ -60,10 +64,16 @@ function calcularHorasExtras() {
         const horasExtras = (new Date(`1970-01-01T${saidaExtra}:00`) - new Date(`1970-01-01T${entradaExtra}:00`)) / (1000 * 60 * 60);
 
         const dataFormatada = dataAtual.toISOString().split('T')[0];
-        if (!registros[dataFormatada]) {
-            registros[dataFormatada] = { horasTrabalhadas: 0, horasExtras: 0, devido: 0 };
+        if (!registros[usuarioAtual]) {
+            registros[usuarioAtual] = {};
         }
-        registros[dataFormatada].horasExtras = horasExtras;
+        if (!registros[usuarioAtual]) {
+            registros[usuarioAtual] = {};
+        }
+        if (!registros[usuarioAtual][dataFormatada]) {
+            registros[usuarioAtual][dataFormatada] = { horasTrabalhadas: 0, horasExtras: 0, devido: 0 };
+        }
+        registros[usuarioAtual][dataFormatada].horasExtras = horasExtras;
 
         salvarRegistros();
         atualizarTotais();
@@ -77,8 +87,8 @@ function salvarRegistros() {
 
 function carregarDadosSalvos() {
     const dataFormatada = dataAtual.toISOString().split('T')[0];
-    if (registros[dataFormatada]) {
-        const registro = registros[dataFormatada];
+    if (registros[usuarioAtual] && registros[usuarioAtual][dataFormatada]) {
+        const registro = registros[usuarioAtual][dataFormatada];
         document.getElementById("entrada").value = registro.entrada || "";
         document.getElementById("refeicaoInicio").value = registro.refeicaoInicio || "";
         document.getElementById("refeicaoFim").value = registro.refeicaoFim || "";
@@ -93,10 +103,12 @@ function atualizarTotais() {
     let totalHorasExtras = 0;
     let totalDevido = 0;
 
-    for (let data in registros) {
-        totalHorasTrabalhadas += registros[data].horasTrabalhadas;
-        totalHorasExtras += registros[data].horasExtras;
-        totalDevido += registros[data].devido;
+    if (registros[usuarioAtual]) {
+        for (let data in registros[usuarioAtual]) {
+            totalHorasTrabalhadas += registros[usuarioAtual][data].horasTrabalhadas;
+            totalHorasExtras += registros[usuarioAtual][data].horasExtras;
+            totalDevido += registros[usuarioAtual][data].devido;
+        }
     }
 
     document.getElementById("totalHorasTrabalhadas").textContent = `Total Horas Trabalhadas: ${formatarHoras(totalHorasTrabalhadas)}`;
@@ -128,8 +140,8 @@ function adicionarRegistroTabela() {
 
     if (linhaExistente) {
         // Atualiza a linha existente
-        linhaExistente.cells[1].textContent = formatarHoras(registros[dataFormatada].horasTrabalhadas);
-        linhaExistente.cells[2].textContent = formatarHoras(registros[dataFormatada].horasExtras);
+        linhaExistente.cells[1].textContent = formatarHoras(registros[usuarioAtual][dataFormatada].horasTrabalhadas);
+        linhaExistente.cells[2].textContent = formatarHoras(registros[usuarioAtual][dataFormatada].horasExtras);
     } else {
         // Se não existir, cria uma nova linha
         const novaLinha = tabelaRegistros.insertRow();
@@ -138,8 +150,8 @@ function adicionarRegistroTabela() {
         const celulaHorasExtras = novaLinha.insertCell(2);
 
         celulaData.textContent = dataFormatada;
-        celulaHorasTrabalhadas.textContent = formatarHoras(registros[dataFormatada].horasTrabalhadas);
-        celulaHorasExtras.textContent = formatarHoras(registros[dataFormatada].horasExtras);
+        celulaHorasTrabalhadas.textContent = formatarHoras(registros[usuarioAtual][dataFormatada].horasTrabalhadas);
+        celulaHorasExtras.textContent = formatarHoras(registros[usuarioAtual][dataFormatada].horasExtras);
     }
 
     salvarTabela(); // Salva a tabela sempre que ela for atualizada
@@ -158,12 +170,12 @@ function salvarTabela() {
         registrosTabela.push({ data, horasTrabalhadas, horasExtras });
     }
 
-    localStorage.setItem("registrosTabela", JSON.stringify(registrosTabela));
+    localStorage.setItem(`registrosTabela_${usuarioAtual}`, JSON.stringify(registrosTabela));
 }
 
 // Função para carregar a tabela do localStorage
 function carregarTabela() {
-    const registrosTabela = JSON.parse(localStorage.getItem("registrosTabela")) || [];
+    const registrosTabela = JSON.parse(localStorage.getItem(`registrosTabela_${usuarioAtual}`)) || [];
 
     const tabelaRegistros = document.getElementById("tabelaRegistros");
     tabelaRegistros.innerHTML = ""; // Limpa a tabela antes de carregar os dados
@@ -194,3 +206,4 @@ window.onload = function() {
     carregarTabela(); // Carrega a tabela
     atualizarTotais();
 };
+

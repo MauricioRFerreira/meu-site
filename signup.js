@@ -40,8 +40,11 @@ document.getElementById('botao-cadastro').addEventListener('click', function(eve
         return;
     }
 
+    // Carrega os usuários salvos
+    const usuariosSalvos = localStorage.getItem("usuarios") ? JSON.parse(localStorage.getItem("usuarios")) : {};
+
     // Verifica se o usuário já existe
-    if (localStorage.getItem("usuario") === nome) {
+    if (usuariosSalvos[nome]) {
         document.getElementById('mensagem-cadastro').innerText = 'Usuário já existe. Tente outro.';
         document.getElementById('mensagem-cadastro').style.color = 'red';
         return;
@@ -55,8 +58,8 @@ document.getElementById('botao-cadastro').addEventListener('click', function(eve
     }
 
     // Salva os dados do usuário no localStorage
-    localStorage.setItem("usuario", nome);
-    localStorage.setItem("senha", senha);
+    usuariosSalvos[nome] = { email: email, senha: senha };
+    localStorage.setItem("usuarios", JSON.stringify(usuariosSalvos));
 
     // Exibe a mensagem de sucesso
     const mensagem = document.getElementById('mensagem-cadastro');

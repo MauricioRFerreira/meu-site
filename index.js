@@ -3,11 +3,11 @@ const checkbox = document.getElementById("check");
 
 // Função para carregar os dados do localStorage
 function carregarDados() {
-    const usuarioSalvo = localStorage.getItem("usuario");
-    const senhaSalva = localStorage.getItem("senha");
+    const usuarioSalvo = localStorage.getItem("usuarios") ? JSON.parse(localStorage.getItem("usuarios")) : {};
     
-    if (usuarioSalvo) {
-        document.getElementById("usuario").value = usuarioSalvo; // Preencher campo de usuário
+    const usuario = document.getElementById("usuario").value;
+    if (usuarioSalvo[usuario]) {
+        document.getElementById("usuario").value = usuario; // Preencher campo de usuário
     }
 }
 
@@ -20,8 +20,7 @@ botaoLogin.addEventListener("click", function(event) {
     const usuario = document.getElementById("usuario").value;
     const senha = document.getElementById("senha-login").value;
 
-    const usuarioSalvo = localStorage.getItem("usuario");
-    const senhaSalva = localStorage.getItem("senha");
+    const usuariosSalvos = localStorage.getItem("usuarios") ? JSON.parse(localStorage.getItem("usuarios")) : {};
 
     // Limpar mensagens anteriores
     const mensagemDiv = document.getElementById("mensagem-cadastro");
@@ -30,11 +29,10 @@ botaoLogin.addEventListener("click", function(event) {
     // Verifica se os campos estão vazios
     if (usuario === "" || senha === "") {
         mostrarMensagem("Por favor, preencha todos os campos.", "red");
-    } else if (!usuarioSalvo || usuario !== usuarioSalvo || senha !== senhaSalva) {
-        mostrarMensagem("Usuário inválido. Por favor, cadastre-se.", "red");
+    } else if (!usuariosSalvos[usuario] || senha !== usuariosSalvos[usuario].senha) {
+        mostrarMensagem("Usuário ou senha inválidos. Por favor, cadastre-se.", "red");
     } else {
-        // Se os campos estiverem preenchidos corretamente, salva os dados
-        salvarDados(); 
+        // Se os campos estiverem preenchidos corretamente, redireciona
         window.location.href = './pagina.html'; // Redireciona
     }
 });
@@ -46,17 +44,6 @@ function mostrarSenha(inputId) {
         input.type = "text"; // Mostra a senha
     } else {
         input.type = "password"; // Oculta a senha
-    }
-}
-
-// Função para salvar os dados no localStorage
-function salvarDados() {
-    if (checkbox.checked) { // Salvar apenas se o checkbox estiver marcado
-        localStorage.setItem("usuario", document.getElementById("usuario").value);
-        localStorage.setItem("senha", document.getElementById("senha-login").value);
-    } else {
-        localStorage.removeItem("usuario"); // Remover se o checkbox não estiver marcado
-        localStorage.removeItem("senha");
     }
 }
 

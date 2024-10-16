@@ -145,3 +145,22 @@ text:nth-child(3) {
 	border: 2px solid rgba(255, 255, 255, .2);
 	color: #f4f0ea;
 }
+
+.mensagem {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.voltar-inicio {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	color: #f9004d;
+	margin: 1rem 0 0 0;
+}
+
+.voltar-inicio:hover {
+	text-decoration: underline;
+}

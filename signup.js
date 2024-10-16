@@ -33,11 +33,30 @@ document.getElementById('botao-cadastro').addEventListener('click', function(eve
     const senha = document.getElementById('cadastro-senha').value;
     const confirmaSenha = document.getElementById('cadastro-confirma-senha').value;
 
-    // Verifica se as senhas são iguais
-    if (senha != confirmaSenha) {
-        document.getElementById('mensagem-cadastro').innerText = 'As senhas não coincidem.';
+    // Verifica se os campos estão preenchidos
+    if (nome === "" || email === "" || senha === "" || confirmaSenha === "") {
+        document.getElementById('mensagem-cadastro').innerText = 'Por favor, preencha todos os campos.';
+        document.getElementById('mensagem-cadastro').style.color = 'red';
         return;
     }
+
+    // Verifica se o usuário já existe
+    if (localStorage.getItem("usuario") === nome) {
+        document.getElementById('mensagem-cadastro').innerText = 'Usuário já existe. Tente outro.';
+        document.getElementById('mensagem-cadastro').style.color = 'red';
+        return;
+    }
+
+    // Verifica se as senhas são iguais
+    if (senha !== confirmaSenha) {
+        document.getElementById('mensagem-cadastro').innerText = 'As senhas não coincidem.';
+        document.getElementById('mensagem-cadastro').style.color = 'red';
+        return;
+    }
+
+    // Salva os dados do usuário no localStorage
+    localStorage.setItem("usuario", nome);
+    localStorage.setItem("senha", senha);
 
     // Exibe a mensagem de sucesso
     const mensagem = document.getElementById('mensagem-cadastro');

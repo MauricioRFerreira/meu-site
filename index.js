@@ -9,9 +9,43 @@ function carregarDados() {
     if (usuarioSalvo) {
         document.getElementById("usuario").value = usuarioSalvo; // Preencher campo de usuário
     }
-    
-    if (senhaSalva) {
-        document.getElementById("senha-login").value = senhaSalva; // Preencher campo de senha
+}
+
+// Carregar dados ao abrir a página
+window.onload = carregarDados;
+
+botaoLogin.addEventListener("click", function(event) {
+    event.preventDefault(); // Evitar que o formulário seja enviado
+
+    const usuario = document.getElementById("usuario").value;
+    const senha = document.getElementById("senha-login").value;
+
+    const usuarioSalvo = localStorage.getItem("usuario");
+    const senhaSalva = localStorage.getItem("senha");
+
+    // Limpar mensagens anteriores
+    const mensagemDiv = document.getElementById("mensagem-cadastro");
+    mensagemDiv.innerText = "";
+
+    // Verifica se os campos estão vazios
+    if (usuario === "" || senha === "") {
+        mostrarMensagem("Por favor, preencha todos os campos.", "red");
+    } else if (!usuarioSalvo || usuario !== usuarioSalvo || senha !== senhaSalva) {
+        mostrarMensagem("Usuário inválido. Por favor, cadastre-se.", "red");
+    } else {
+        // Se os campos estiverem preenchidos corretamente, salva os dados
+        salvarDados(); 
+        window.location.href = './pagina.html'; // Redireciona
+    }
+});
+
+// Função para mostrar ou ocultar a senha
+function mostrarSenha(inputId) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+        input.type = "text"; // Mostra a senha
+    } else {
+        input.type = "password"; // Oculta a senha
     }
 }
 
@@ -26,29 +60,11 @@ function salvarDados() {
     }
 }
 
-// Carregar dados ao abrir a página
-window.onload = carregarDados;
-
-botaoLogin.addEventListener("click", function(event) {
-    event.preventDefault(); // Evitar que o formulário seja enviado
-
-    const usuario = document.getElementById("usuario").value;
-    const senha = document.getElementById("senha-login").value; // Corrigido o ID aqui
-
-    if (usuario === "" || senha === "") {
-        alert("Por favor, preencha todos os campos."); // Mensagem de erro
-    } else {
-        salvarDados(); // Salvar os dados ao clicar no botão de login
-        // Se os campos não estiverem vazios, redireciona
-        window.location.href = './pagina.html';
-    }
-});
-
-function mostrarSenha() {
-    var senha = document.getElementById("senha-login"); // Corrigido o ID aqui
-    if (senha.type === "password") {
-        senha.type = "text"; // Exibir a senha
-    } else {
-        senha.type = "password"; // Ocultar a senha
-    }
+// Função para mostrar mensagens
+function mostrarMensagem(mensagem, cor) {
+    const mensagemDiv = document.getElementById("mensagem-cadastro");
+    mensagemDiv.innerText = mensagem;
+    mensagemDiv.style.color = cor;
+    mensagemDiv.style.textAlign = "center";
+    mensagemDiv.style.marginTop = "10px";
 }
